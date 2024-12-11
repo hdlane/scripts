@@ -25,10 +25,9 @@ date = datetime.now().date()
 
 load_dotenv(".env")
 
+# create .env file with the below credentials used to login to Cisco devices
 DEVICE_USERNAME = os.environ.get("DEVICE_USERNAME")
 DEVICE_PASSWORD = os.environ.get("DEVICE_PASSWORD")
-CLIENT_ID = os.environ.get("CLIENT_ID")
-CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
 RETENTION_FILE_NUMBER = 2
 RETENTION_DAYS = 30
 
