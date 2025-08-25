@@ -1,17 +1,19 @@
-#Log file templates:
-#LogMessage "$(Get-Date -Format "h:mm:ss.ff tt") INFO:"
-#LogMessage "$(Get-Date -Format "h:mm:ss.ff tt") WARN:"
-#LogMessage "$(Get-Date -Format "h:mm:ss.ff tt")  ERR:"
+#LogMessage usage:
+#LogMessage -Message "Beginning Logging..." -Severity INFO
 
-$LogFile = "\\path\Logs\Log-$(Get-Date -Format 'yyyy-MM-dd-hhmmss').txt"
+$logsDirectory = "\\path\Logs"
+$logFile = "$(Get-Date -Format 'yyyy-MM-dd-hhmmss').log"
 
 Function LogMessage {
     param (
         [Parameter(Mandatory)]
         [String]
-        $Message
+        $Message,
+        [Parameter(Mandatory)]
+        [ValidateSet("INFO", "WARNING", "ERROR")]
+        $Severity
     )
-    Add-Content -Path $LogFile $Message
+    Add-Content -Path "$($logsDirectory)\$($logFile)" "$(Get-Date -Format "hh:mm:ss.ff tt") $($Severity): $($Message)"
 }
 
-New-Item -Path $LogFile -ItemType File -Value "$(Get-Date -Format "h:mm:ss.ff tt") INFO: Beginning Logging...`n" -Force #New line character `n only needed once in the script
+New-Item -Path "$($logsDirectory)\$($logFile)" -ItemType File -Force
